@@ -11,6 +11,8 @@ libnotify-bin
 
 dialog
 
+alsa-utils
+
 # Usage
 The script receive 3 parameters:
 
