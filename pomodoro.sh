@@ -32,20 +32,26 @@ do
 done
 notify-send "Pomodoro" "${1} acabou!";
 }
+function beep(){
+( speaker-test -t sine -f 1000 )& pid=$! ; sleep 0.3s ; kill -9 $pid
+}
+
 while [ 1 ]
 do
-#1
+J=0;
+while [ $J -lt 4 ]
+do
 timer Pomodori $1;
-timer Descanso $2;
-#2
-timer Pomodori $1;
-timer Descanso $2;
-#3
-timer Pomodori $1;
-timer Descanso $2;
-#4
-timer Pomodori $1;
-timer Descanso $2;
-#Descanso longo
+beep
+if [ "$J" == "3" ]; then
+dialog --msgbox "Pressione Enter para começar descanso longo!" 6 30;
 timer "Descanso Longo" $3;
+else
+dialog --msgbox "Pressione Enter para começar descanso!" 6 30;
+timer Descanso $2;
+fi
+beep;
+dialog --msgbox "Pressione Enter para começar pomodori!" 6 30;
+J=$(($J+1));
+done
 done
